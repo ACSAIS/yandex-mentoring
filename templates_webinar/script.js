@@ -11,14 +11,12 @@ const list = document.querySelector('.list');
 const formButton = document.querySelector('.form__submit');
 const formInput = document.querySelector('.form__input');
 
-formButton.addEventListener('click', handleSubmit);
-
-function handleSubmit() {
-    const text = formInput.value;
-    todos.unshift(text);
-    formInput.value = '';
-    render();
+const state = {
+    mode: 'add',
+    index: null,
 }
+
+
 /* 
 <li class="list__item">
     <span class="item__text"></span>
@@ -29,9 +27,9 @@ function handleSubmit() {
  */
 
  function render() {
-     list.innerHTML = '';
+     clean();
      todos.forEach(renderItem);
-     addEventListeners();
+     setAllListeners();
  }
 
  render();
@@ -51,8 +49,44 @@ function handleSubmit() {
     render();
  }
 
- function addEventListeners() {
+ function handleSubmit() {
+    const text = formInput.value;
+    if (state.mode === 'add') {
+        todos.unshift(text);
+    } else if (state.mode === 'edit') {
+        todos[state.index] = text;
+    }
+    
+    formInput.value = '';
+    render();
+}
+
+ function handleEdit() {
+    const index = event.target.parentNode.getAttribute('id');
+    const text = todos[index];
+    formInput.value = text;
+    formButton.value = "Сохранить";
+    state.mode = 'edit';
+    state.index = index;
+ }
+
+ function setAllListeners() {
+    formButton.addEventListener('click', handleSubmit);
     document.querySelectorAll('.delete').forEach(deleteButton => {
         deleteButton.addEventListener('click', handleDelete);
     })
+    document.querySelectorAll('.edit').forEach(editButton => {
+        editButton.addEventListener('click', handleEdit);
+    })
+ }
+
+ function setDefaultState() {
+     state.mode = 'add';
+     state.index = null;
+ }
+
+ function clean() {
+    formButton.value = "Добавить";
+    setDefaultState();
+    list.innerHTML = '';
  }
