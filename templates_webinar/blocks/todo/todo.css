@@ -1,0 +1,6 @@
+.todo {
+    width: 700px;
+    margin: 96px auto 0 auto;
+    min-height: calc(100vh - 74px - 96px);
+}
+

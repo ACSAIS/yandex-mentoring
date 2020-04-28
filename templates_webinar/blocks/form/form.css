@@ -1,0 +1,9 @@
+@import url(./__input/form__input.css);
+@import url(./__submit/form_submit.css);
+
+.form {
+    height: 70px;
+    display: grid;
+    grid-template-columns: 510px 180px;
+    grid-column-gap: 10px;
+}
