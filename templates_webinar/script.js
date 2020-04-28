@@ -61,13 +61,20 @@ const state = {
     render();
 }
 
- function handleEdit() {
+ function handleEdit(event) {
     const index = event.target.parentNode.getAttribute('id');
     const text = todos[index];
     formInput.value = text;
     formButton.value = "Сохранить";
     state.mode = 'edit';
     state.index = index;
+ }
+
+ function handleDuplicate(event) {
+    const index = event.target.parentNode.getAttribute('id');
+    const text = todos[index];
+    todos.splice(index, 0, [text]);
+    render();
  }
 
  function setAllListeners() {
@@ -77,6 +84,9 @@ const state = {
     })
     document.querySelectorAll('.edit').forEach(editButton => {
         editButton.addEventListener('click', handleEdit);
+    })
+    document.querySelectorAll('.duplicate').forEach(duplicateButton => {
+        duplicateButton.addEventListener('click', handleDuplicate)
     })
  }
 
