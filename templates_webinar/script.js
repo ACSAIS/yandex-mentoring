@@ -30,14 +30,10 @@ function handleSubmit() {
 
  function render() {
      list.innerHTML = '';
-     todos.forEach(listElement => {
-         list.insertAdjacentHTML('beforeend' , `
-         <li class="list__item">
-            <span class="item__text">${listElement}</span>
-            <img class="edit" src="images/Edit.png" alt="Редактировать">
-            <img class="duplicate" src="images/Duplicate.png" alt="Копировать">
-            <img class="delete" src="images/Delete.png" alt="Удалить">
-        </li>`);
+     todos.forEach(text => {
+        const element = itemTemplate.cloneNode(true);
+        element.querySelector('.item__text').innerText = text;
+        list.appendChild(element);
      })
  }
 
