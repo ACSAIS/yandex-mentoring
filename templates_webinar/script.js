@@ -30,11 +30,29 @@ function handleSubmit() {
 
  function render() {
      list.innerHTML = '';
-     todos.forEach(text => {
-        const element = itemTemplate.cloneNode(true);
-        element.querySelector('.item__text').innerText = text;
-        list.appendChild(element);
-     })
+     todos.forEach(renderItem);
+     addEventListeners();
  }
 
  render();
+
+
+
+ function renderItem(text, index) {
+    const element = itemTemplate.cloneNode(true);
+    element.querySelector('.item__text').innerText = text;
+    element.querySelector('.list__item').setAttribute('id', index);
+    list.appendChild(element);
+ }
+
+ function handleDelete(event) {
+    const index = event.target.parentNode.getAttribute('id');
+    todos.splice(index, 1);
+    render();
+ }
+
+ function addEventListeners() {
+    document.querySelectorAll('.delete').forEach(deleteButton => {
+        deleteButton.addEventListener('click', handleDelete);
+    })
+ }
