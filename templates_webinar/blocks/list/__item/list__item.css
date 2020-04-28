@@ -9,5 +9,5 @@
     grid-column-gap: 30px;
     padding: 0 45px;
     align-items: center;
-    height: 110px;
+    min-height: 110px;
 }
